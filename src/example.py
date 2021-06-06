@@ -1,5 +1,5 @@
 from .hydrogen import Mod, EventHandler, events
-META = Mod("Example Mod", "Commander", "Example hydrogen mod", "hydrogen:example")
+META = Mod("Example Mod", "Commander", "Example HML mod", "hml:example")
 
 
 class example(META):
@@ -7,5 +7,9 @@ class example(META):
     super().__init__()
 
   @EventHandler(events.OnEnable)
-  def OnEnable(e):
-    print(e)
+  def OnEnable(self):
+    print("Example mod enabled!")
+
+  @EventHandler(events.OnDisable)
+  def OnDisable(self):
+    print("Example mod disabled!")

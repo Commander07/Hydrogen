@@ -4,6 +4,7 @@ author: https://github.com/commander07
 description: Hydrogen Mod Loader (HML) is a modding framework for python games. That has features such as events, override and more!
 """
 from dataclasses import dataclass
+import atexit
 class GLOBAL: pass
 
 
@@ -19,15 +20,16 @@ class EventHandler:
     self.event = event
 
   def __call__(self, handle):
-    setattr(GLOBAL, "example", {})
-    getattr(GLOBAL, "example")[self.event.name] = handle
-
+    if self.event == events.OnDisable:
+      atexit.register(handle, self)
+      return handle
+    setattr(GLOBAL, self.event.name, handle)
     return handle
 
 
 def load_mod(self):
   try:
-    getattr(GLOBAL, "example")["OnEnable"](events.OnEnable)
+    GLOBAL.OnEnable(self)
   except KeyError:
     pass
 

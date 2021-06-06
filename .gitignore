@@ -143,3 +143,5 @@ cython_debug/
 
 # UNIQUE
 build.py
+test_main.py
+.vscode/
