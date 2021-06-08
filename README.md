@@ -13,7 +13,7 @@ HML Is a feature rich modding framework for all your python needs.
 
 ## Installation
 
-Download your wanted version from the 'releases' folder and extract it to a folder called 'mods'.
+Download your wanted version [here](https://github.com/Commander07/Hydrogen/releases) and extract it to a folder called 'mods'.
 Now you have to choose between static or dynamic loading with the key diffrence being you load a mod with importlib with dynamic loading and vanilla python for static.
 
 ### Dynamic mod loading
