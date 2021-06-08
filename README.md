@@ -28,7 +28,7 @@ example = "example"
 mods = {}
 
 # Import the mod and initialise it into the 'mods' variable
-mods[example] = getattr(importlib.import_module(f"src.{example}"), example)()
+mods[example] = getattr(importlib.import_module(f"mods.{example}"), example)()
 ```
 
 ### Calling events
