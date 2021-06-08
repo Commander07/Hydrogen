@@ -13,3 +13,7 @@ class example(META):
   @EventHandler(events.OnDisable)
   def OnDisable(self):
     print("Example mod disabled!")
+
+  @EventHandler(events.OnKill)
+  def OnKill(self, event):
+    print(f"Killed {event.name}!")

@@ -7,6 +7,7 @@ HML Is a feature rich modding framework for all your python needs.
 - EventHandler
   - Automated events
   - Manual event calling
+  - Custom Events
 - Static and Dynamic mod loading
 - Mod meta data
 - Drag & drop infrastructure
@@ -14,20 +15,54 @@ HML Is a feature rich modding framework for all your python needs.
 ## Installation
 
 Download your wanted version [here](https://github.com/Commander07/Hydrogen/releases) and extract it to a folder called 'mods'.
-Now you have to choose between static or dynamic loading with the key diffrence being you load a mod with importlib with dynamic loading and vanilla python for static.
 
-### Dynamic mod loading
+## Usage
+
+### Importing mods
 
 ```python
 import importlib
-mod_name = "example" # mod to install in 'mods' folder
-mods = {} # dict for easy access of mods
-mods[mod_name] = getattr(importlib.import_mod(f"mods.{mod_name}"), mod_name)() # get the mod class in the mod and initates it and adds it to the mod dict.
+
+# Create 2 variables 1 for storing all mods and 1 for the name of a mod too be imported.
+example = "example"
+mods = {}
+
+# Import the mod and initialise it into the 'mods' variable
+mods[example] = getattr(importlib.import_module(f"src.{example}"), example)()
 ```
 
-### Static mod loading
+### Calling events
 
 ```python
-import mods.example as example
-example = example.example()
+# Object to store event data.
+class store:
+  name = "Zombie"
+
+
+# Grab event from selected mod and give it the mod instance.
+OnKillEvent = mods["example"].events.OnKill(mods["example"])
+
+# Grab the hydrogen EventHandler and run the 'OnKillEvent' with the data in the 'store' variable.
+mods["example"].EventHandler(OnKillEvent, store, call=True)
+```
+
+### Creating events
+
+In 'mods/\_\_config__.py' you will find a class named 'events' if you want to add events you just simply want to add a line following the syntax shown in the example.
+
+```python
+from dataclasses import dataclass
+
+
+class events:
+  @dataclass
+  class Event:
+    __name__: str
+
+    def __call__(self, mod_instance):
+      self.__self__ = mod_instance
+      return self
+
+  # Creates an 'OnKill' event
+  OnKill = Event("OnKill")
 ```
