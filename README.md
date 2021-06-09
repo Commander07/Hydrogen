@@ -7,43 +7,50 @@ HML Is a feature rich modding framework for all your python needs.
 - EventHandler
   - Automated events
   - Manual event calling
+  - Event return values
   - Custom Events
 - Static and Dynamic mod loading
 - Mod meta data
+- User friendly api
 - Drag & drop infrastructure
 
 ## Installation
 
-Download your wanted version [here](https://github.com/Commander07/Hydrogen/releases) and extract it and move everything in the 'src' folder to a folder called 'mods' in your project root.
+Download your wanted version [here](https://github.com/Commander07/Hydrogen/releases) and extract it and move everything in the 'src' folder to your project root.
 
 ## Usage
 
 ### Importing mods
 
 ```python
-import importlib
+from mods.hydrogen import utils, events
 
-# Create 2 variables 1 for storing all mods and 1 for the name of a mod too be imported.
-example = "example"
-mods = {}
+# Import mod 'example'.
+utils.import_mod("example")
+```
 
-# Import the mod and initialise it into the 'mods' variable
-mods[example] = getattr(importlib.import_module(f"mods.{example}"), example)()
+### Get mod instance
+
+```python
+from mods.hydrogen import utils, events
+
+# Get mod 'example'.
+utils.get("example")
 ```
 
 ### Calling events
 
 ```python
+from mods.hydrogen import utils, events
+
+
 # Object to store event data.
-class store:
+class data:
   name = "Zombie"
 
 
-# Grab event from selected mod and give it the mod instance.
-OnKillEvent = mods["example"].events.OnKill(mods["example"])
-
-# Grab the hydrogen EventHandler and run the 'OnKillEvent' with the data in the 'store' variable.
-mods["example"].EventHandler(OnKillEvent, store, call=True)
+# Call event OnKill in all mods with the data from the data object.
+return_value = utils.call_event(events.OnKill, data)
 ```
 
 ### Creating events

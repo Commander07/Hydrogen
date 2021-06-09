@@ -143,5 +143,5 @@ cython_debug/
 
 # UNIQUE
 build.py
-test_main.py
+src/test_main.py
 .vscode/
