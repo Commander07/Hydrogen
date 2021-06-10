@@ -19,6 +19,7 @@ utils:
     get(self, mod) -> class ...(ModMetaData)
 
 """
+import os
 import atexit
 import importlib
 from .__config__ import events as __events__
@@ -53,6 +54,10 @@ class utils:
 
   def import_mod(self, mod):
     self.mods[mod] = getattr(importlib.import_module(f"mods.{mod}"), mod)()
+
+  def import_mods(self):
+    for mod in [''.join(file.split(".")[:-1]) for file in next(os.walk("mods"))[2] if not file.startswith("__") and file != "hydrogen.py"]:
+      self.import_mod(mod)
 
   def call_event(self, event: events.Event, data: object) -> list[any | None]:
     return_values = []

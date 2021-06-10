@@ -22,6 +22,17 @@ Download your wanted version [here](https://github.com/Commander07/Hydrogen/rele
 
 ### Importing mods
 
+#### Multiple mods
+
+```python
+from mods.hydrogen import utils, events
+
+# Import all mods in 'mods' folder.
+utils.import_mods()
+```
+
+#### Single mod
+
 ```python
 from mods.hydrogen import utils, events
 
